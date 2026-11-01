@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>👀目線差シミュレーター</title>
+    <title>👀视线差模拟器</title>
     <style>
         :root { --panel-width: 300px; }
-        body { margin: 0; font-family: 'Helvetica Neue', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background: #ffffff; overflow: hidden; }
+        body { margin: 0; font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif; background: #ffffff; overflow: hidden; }
         
-        /* #ui-panel の更新 */
+        /* #ui-panel 的更新 */
         #ui-panel {
             position: absolute; 
             top: 10px; 
             left: 10px; 
             width: var(--panel-width);
             max-height: calc(100vh - 20px);
-            max-height: calc(100dvh - 20px); /* 可変ビューポート対応 */
+            max-height: calc(100dvh - 20px); /* 适配可变视口 */
             background: rgba(255, 255, 255, 0.95); 
             padding: 15px; 
             padding-bottom: 40px; 
@@ -32,7 +32,7 @@
             transition: all 0.2s ease-out;
         }
 
-        /* ★追加: 折りたたんだ（閉じた）時のスタイル定義 */
+        /* ★新增：折叠（收起）状态的样式定义 */
         #ui-panel.collapsed {
             max-height: none !important;
             padding: 10px 15px !important;
@@ -44,11 +44,11 @@
         @media screen and (max-width: 480px) { 
             :root { --panel-width: calc(100vw - 20px); }
             #ui-panel { left: 10px; right: 10px; }
-            /* スマホ時、閉じた状態なら右側の余白固定を解除してタイトルサイズに収める */
+            /* 手机端处于收起状态时，解除右侧固定留白，收进标题尺寸 */
             #ui-panel.collapsed { right: auto; }
         }
         
-        /* ヘッダーをパネル上部に固定（スクロールしても上に張り付く） */
+        /* 头部固定在面板顶部（滚动时依然吸顶） */
         .panel-header { 
             display: flex; 
             justify-content: space-between; 
@@ -56,8 +56,8 @@
             cursor: pointer; 
             user-select: none; 
             gap: 10px; 
-            position: sticky; /* パネル内スクロール時も上に固定 */
-            top: -15px;       /* padding 分を相殺 */
+            position: sticky; /* 面板内滚动时同样置顶 */
+            top: -15px;       /* 抵消 padding 的高度 */
             background: rgba(255, 255, 255, 0.95);
             padding: 10px 0;
             margin: -15px -15px 10px -15px;
@@ -166,68 +166,68 @@
 
 <div id="ui-panel">
     <div class="panel-header" onclick="togglePanel()">
-        <h1 class="app-title">👀目線差シミュレーター</h1>
-        <span id="toggle-text">閉じる</span>
+        <h1 class="app-title">👀视线差模拟器</h1>
+        <span id="toggle-text">收起</span>
     </div>
 
     <div id="ui-content">
-        <p class="app-description">性別と身長を入力して、二人の身長差を一人称視点で体験できます。<br>
-            画面スワイプで視点も動かせます。<br>
-        二人の距離は15cm～25mまで離れられます。</p>
+        <p class="app-description">输入性别与身高，即可用第一人称视角体验两人的身高差。<br>
+            滑动画面还可以移动视角。<br>
+        两人的距离可在 15cm～25m 之间调整。</p>
         
         <div class="app-disclaimer">
-            ※初期値は日本人の各性別の平均値です。個人差があるため数値は目安です。<br>
+            ※初始值为各性别的平均值，个人差异较大，数值仅供参考。<br>
         </div>
         
         <div class="input-group group-a">
             <div class="section-header"><strong>A</strong></div>
             <div class="input-row">
-                <div class="input-item"><span class="hint">名前</span><input type="text" id="nameA" placeholder="名前A" oninput="updateScene()"></div>
-                <div class="input-item" style="flex: 0.6;"><span class="hint">性別</span><select id="genderA" onchange="updateScene()"><option value="male">男</option><option value="female" selected>女</option></select></div>
+                <div class="input-item"><span class="hint">名字</span><input type="text" id="nameA" placeholder="名字A" oninput="updateScene()"></div>
+                <div class="input-item" style="flex: 0.6;"><span class="hint">性别</span><select id="genderA" onchange="updateScene()"><option value="male">男</option><option value="female" selected>女</option></select></div>
             </div>
             <div class="input-row">
-                <div class="input-item"><span class="hint">身長 (cm)</span><input type="number" id="heightA" value="158.0" step="0.1" oninput="updateScene()"></div>
-                <div class="input-item" style="flex: 0.35;"><span class="hint">色</span><input type="color" id="colorA" class="color-picker" value="#ffcc99" oninput="updateScene()"></div>
+                <div class="input-item"><span class="hint">身高 (cm)</span><input type="number" id="heightA" value="158.0" step="0.1" oninput="updateScene()"></div>
+                <div class="input-item" style="flex: 0.35;"><span class="hint">颜色</span><input type="color" id="colorA" class="color-picker" value="#ffcc99" oninput="updateScene()"></div>
             </div>
         </div>
 
         <div class="input-group group-b">
             <div class="section-header"><strong>B</strong></div>
             <div class="input-row">
-                <div class="input-item"><span class="hint">名前</span><input type="text" id="nameB" placeholder="名前B" oninput="updateScene()"></div>
-                <div class="input-item" style="flex: 0.6;"><span class="hint">性別</span><select id="genderB" onchange="updateScene()"><option value="male" selected>男</option><option value="female">女</option></select></div>
+                <div class="input-item"><span class="hint">名字</span><input type="text" id="nameB" placeholder="名字B" oninput="updateScene()"></div>
+                <div class="input-item" style="flex: 0.6;"><span class="hint">性别</span><select id="genderB" onchange="updateScene()"><option value="male" selected>男</option><option value="female">女</option></select></div>
             </div>
             <div class="input-row">
-                <div class="input-item"><span class="hint">身長 (cm)</span><input type="number" id="heightB" value="171.5" step="0.1" oninput="updateScene()"></div>
-                <div class="input-item" style="flex: 0.35;"><span class="hint">色</span><input type="color" id="colorB" class="color-picker" value="#ffad60" oninput="updateScene()"></div>
+                <div class="input-item"><span class="hint">身高 (cm)</span><input type="number" id="heightB" value="171.5" step="0.1" oninput="updateScene()"></div>
+                <div class="input-item" style="flex: 0.35;"><span class="hint">颜色</span><input type="color" id="colorB" class="color-picker" value="#ffad60" oninput="updateScene()"></div>
             </div>
         </div>
 
         <div style="padding: 0 5px;">
             <div class="input-item">
-                <span class="hint">二人の距離: <span id="dist-display" style="color:#333; font-weight:bold;">60cm</span></span>
+                <span class="hint">两人距离：<span id="dist-display" style="color:#333; font-weight:bold;">60cm</span></span>
                 <input type="range" id="distance" min="15" max="2500" value="60" oninput="updateScene()">
                 <div id="dist-hint" style="font-size: 10px; color: #3498db; margin-top: 4px; text-align: right; font-weight: bold; min-height: 15px;"></div>
             </div>
-            <button class="switch-btn" onclick="switchView()">🔄 視点を入れ替える</button>
+            <button class="switch-btn" onclick="switchView()">🔄 切换视角</button>
         </div>
         
         <div id="info-container">
             <div class="info-box" id="info"></div>
             <button class="share-btn" onclick="shareToX()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>で結果をシェアする
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg> 分享结果
             </button>
 
             <div class="other-tools-link">
-                <p style="font-size: 10px; color: #888; margin-bottom: 8px;">こちらもチェック❣🤩</p>
+                <p style="font-size: 10px; color: #888; margin-bottom: 8px;">顺便也看看这些❣🤩</p>
                 <a href="https://qwertyaz111.github.io/my-site-hub/">
-                    ツール・シミュレーター一覧
+                    工具・模拟器合集
                 </a>
             </div>
 
             <div class="usage-notes">
-                スクショ投稿や加工、トレース等はご自由にお楽しみください。<br>
-                ※営利目的や商用利用はご遠慮ください。
+                截图分享、二次加工、临摹描图等都可以随意使用。<br>
+                ※请勿用于营利、商业用途。
             </div>
         </div>
     </div>
@@ -246,21 +246,21 @@
         const panel = document.getElementById('ui-panel');
         const text = document.getElementById('toggle-text');
         panel.classList.toggle('collapsed');
-        text.innerText = panel.classList.contains('collapsed') ? '開く' : '閉じる';
+        text.innerText = panel.classList.contains('collapsed') ? '展开' : '收起';
     }
 
     const uiPanel = document.getElementById('ui-panel');
     uiPanel.addEventListener('touchstart', (e) => { e.stopPropagation(); }, { passive: true });
     uiPanel.addEventListener('touchmove', (e) => { e.stopPropagation(); }, { passive: true });
 
-    // 入力フォームからフォーカスが外れた際に、パネルのスクロール位置を上部へリセットする
+    // 输入框失焦时，把面板的滚动位置重置回顶部
     document.querySelectorAll('#ui-panel input, #ui-panel select').forEach(element => {
         element.addEventListener('blur', () => {
             const panel = document.getElementById('ui-panel');
             if (panel) {
                 panel.scrollTop = 0;
             }
-            // iOS Safari等の画面全体のズレ防止策
+            // 防止 iOS Safari 等设备上整屏偏移的对策
             window.scrollTo(0, 0);
         });
     });
@@ -325,14 +325,14 @@
         document.getElementById('dist-display').innerText = dVal >= 100 ? (dVal/100).toFixed(1) + "m" : dVal + "cm";
         
         let distHintText = "";
-        if (dVal <= 20) distHintText = "（壁ドンの距離感）";
-        else if (dVal >= 2450) distHintText = "（25mプール1本分）";
-        else if (dVal >= 1950 && dVal <= 2050) distHintText = "（電車1両分の長さ）";
-        else if (dVal >= 1750 && dVal <= 1850) distHintText = "（バレーコートの縦の長さ）";
-        else if (dVal >= 1150 && dVal <= 1250) distHintText = "（大型トラックの全長）";
-        else if (dVal >= 450 && dVal <= 500) distHintText = "（乗用車1台分の長さ）";
-        else if (dVal >= 260 && dVal <= 280) distHintText = "（グランドピアノの長さ）";
-        else if (dVal >= 1200 && dVal <= 1300) distHintText = "（25mプールの半分）";
+        if (dVal <= 20) distHintText = "（类似壁咚的距离感）";
+        else if (dVal >= 2450) distHintText = "（一个 25m 泳池的长度）";
+        else if (dVal >= 1950 && dVal <= 2050) distHintText = "（一节电车车厢的长度）";
+        else if (dVal >= 1750 && dVal <= 1850) distHintText = "（排球场纵向的长度）";
+        else if (dVal >= 1150 && dVal <= 1250) distHintText = "（大型卡车的全长）";
+        else if (dVal >= 450 && dVal <= 500) distHintText = "（一辆家用轿车的长度）";
+        else if (dVal >= 260 && dVal <= 280) distHintText = "（三角钢琴的长度）";
+        else if (dVal >= 1200 && dVal <= 1300) distHintText = "（半个 25m 泳池）";
         document.getElementById('dist-hint').innerText = distHintText;
 
         const myName = (currentView === 'A') ? nA : nB;
@@ -343,7 +343,7 @@
         const targetGender = (currentView === 'A') ? gB : gA;
         const targetColor = (currentView === 'A') ? cB : cA;
 
-        document.getElementById('view-label').innerText = `${myName} の視点`;
+        document.getElementById('view-label').innerText = `${myName} 的视角`;
         
         const eyeRatio = (myGender === 'male') ? 0.904 : 0.903;
         const eyeLevel = myHeight * eyeRatio * 0.01;
@@ -426,11 +426,11 @@
         const diff = (targetEyeY - eyeLevel) * 100;
         document.getElementById('info').innerHTML = `
             <div class="info-row">
-                <span class="info-label">📏 身長差</span>
+                <span class="info-label">📏 身高差</span>
                 <span class="info-value">${Math.abs(hB - hA).toFixed(1)}<span class="unit">cm</span></span>
             </div>
             <div class="info-row">
-                <span class="info-label">👁️ 相手の目線</span>
+                <span class="info-label">👁️ 对方的视线</span>
                 <span class="info-value" style="color: ${diff > 0 ? '#e74c3c' : '#2980b9'}">
                     ${Math.abs(diff).toFixed(1)}<span class="unit">cm ${diff > 0 ? '上' : '下'}</span>
                 </span>
@@ -444,7 +444,7 @@
         const hA = parseFloat(document.getElementById('heightA').value) || 158.0;
         const hB = parseFloat(document.getElementById('heightB').value) || 171.5;
         const diff = Math.abs(hA - hB).toFixed(1);
-        const text = `${nA}(${hA}cm)と${nB}(${hB}cm)の身長差(${diff}cm)を一人称で体験しました！\n#目線差シミュレーター\n`;
+        const text = `${nA}(${hA}cm) 和 ${nB}(${hB}cm) 的身高差（${diff}cm）第一人称体验！\n#视线差模拟器\n`;
         const url = window.location.href;
         window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
     }
@@ -482,6 +482,73 @@
     }
     
     init();
+</script>
+
+<script>
+/* 设置持久化：名字・身高・颜色等会记住，刷新后自动恢复 */
+(function () {
+  var KEY = 'simSettings:' + location.pathname;
+  var SKIP = { seek: 1, pVol: 1 };
+  function list() {
+    var els = document.querySelectorAll('input,select,textarea'), out = [], i, el;
+    for (i = 0; i < els.length; i++) {
+      el = els[i];
+      if (el.type === 'file' || el.type === 'button' || el.type === 'submit' || el.type === 'reset') continue;
+      if (el.id && SKIP[el.id]) continue;
+      out.push(el);
+    }
+    return out;
+  }
+  function keyOf(el) {
+    if (el.id) return 'id:' + el.id;
+    var cn = (el.className || '').split(/\s+/)[0];
+    if (!cn) return null;
+    var sibs = document.querySelectorAll(el.tagName.toLowerCase() + '[class~="' + cn + '"]'), i;
+    for (i = 0; i < sibs.length; i++) if (sibs[i] === el) return 'cls:' + cn + ':' + i;
+    return null;
+  }
+  function get(el) {
+    return (el.type === 'checkbox' || el.type === 'radio') ? el.checked : el.value;
+  }
+  function set(el, v) {
+    var i;
+    if (el.tagName === 'SELECT') {
+      var ok = false;
+      for (i = 0; i < el.options.length; i++) if (el.options[i].value === v) ok = true;
+      if (!ok) return;
+    }
+    if (el.type === 'checkbox' || el.type === 'radio') el.checked = !!v;
+    else el.value = v;
+  }
+  function fire(el, type) {
+    try { el.dispatchEvent(new Event(type, { bubbles: true })); } catch (e) {}
+  }
+  function restore() {
+    var raw = null, data = null, els, k, i;
+    try { raw = localStorage.getItem(KEY); } catch (e) { return; }
+    if (!raw) return;
+    try { data = JSON.parse(raw); } catch (e) { return; }
+    els = list();
+    for (i = 0; i < els.length; i++) { k = keyOf(els[i]); if (k && data[k] !== undefined) set(els[i], data[k]); }
+    for (i = 0; i < els.length; i++) { fire(els[i], 'input'); fire(els[i], 'change'); }
+    for (i = 0; i < els.length; i++) { k = keyOf(els[i]); if (k && data[k] !== undefined) set(els[i], data[k]); }
+  }
+  var timer = null;
+  function save() {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function () {
+      var els = list(), data = {}, k, i;
+      for (i = 0; i < els.length; i++) { k = keyOf(els[i]); if (k) data[k] = get(els[i]); }
+      try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
+    }, 200);
+  }
+  document.addEventListener('input', save, true);
+  document.addEventListener('change', save, true);
+  window.addEventListener('load', restore);
+  window.__simSettings = {
+    clear: function () { try { localStorage.removeItem(KEY); } catch (e) {} }
+  };
+})();
 </script>
 </body>
 </html>
